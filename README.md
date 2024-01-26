@@ -1,6 +1,6 @@
 # SQL Guardian Action
 
-This action prints in the screen the changed files of the current branch, and added files.
+This action checks all the branch changed files, matching against forbidden rules described during the workflow configuration as featured below. When a error exists, the action itself exits with error, logging the found matches.
 
 ## Inputs
 
