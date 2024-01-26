@@ -11,7 +11,7 @@ function validatePattern() {
     local capture_target_pattern=$2
     local forbidden_pattern=$3
     local error_msg=$4
-    local found_target=$(grep -i -E "$capture_target_pattern" "$current_file" | sed -E "s/$capture_target_pattern/\1/I")
+    local found_target=$(grep -i -E "$capture_target_pattern" "$current_file" | sed -E "s/$capture_target_pattern/\2/I")
     
     if [[ "$found_target" =~ $forbidden_pattern ]]; then
         erros+=$'\n'"\n$error_msg [$current_file]: \n$found_target"
@@ -19,7 +19,7 @@ function validatePattern() {
 }
 
 for current_file in "${files_array[@]}"; do
-    validatePattern "$current_file" ".*CREATE\s+TABLE\s+(\S+).*" $TABLE_FORBIDDEN_PATTERN "Nomes de tabela no arquivo"
+    validatePattern "$current_file" "CREATE\s+TABLE\s+(IF\s+NOT\s+EXISTS\s+)?(\S+)" $TABLE_FORBIDDEN_PATTERN "Nomes de tabela no arquivo"
 done
 
 if [ -n "$erros" ]; then
