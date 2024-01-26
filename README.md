@@ -2,16 +2,35 @@
 
 This action prints in the screen the changed files of the current branch, and added files.
 
-## Outputs
+## Inputs
 
-## `ADDED_FILES`
+### `table_forbidden_pattern`
 
-Added files of the current branch.
+- Regular expression, when a table name is MATCH, is added to the error's list.
+- default = [^_\w]|[A-Z]|[1-9]]
 
-## `CHANGED_AND_MODIFIED_FILES`
+### `column_forbidden_pattern`
 
-Changed files of the current branch.
+- Regular expression, when a column name is MATCH, is added to the error's list.
+- default = [^_\w]|[A-Z]|[1-9]]
 
 ## Example usage
 
-uses: actions/sql-guardian@v1.0.0
+``
+
+    steps:
+      - uses: AutoModality/action-clean@v1
+
+      - name: Checkout code
+        uses: actions/checkout@v4
+        with:
+            token: ${{ secrets.GITHUB_TOKEN }}
+            ref: main
+
+      - name: Run SQL Guardian
+        uses: sousadiego11/sql-guardian@main
+        with:
+            table_forbidden_pattern: "[^A-Z]"
+            column_forbidden_pattern: "[\d+]"
+          
+``
