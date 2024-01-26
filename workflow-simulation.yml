@@ -19,4 +19,4 @@ jobs:
           ref: main
 
       - name: Run SQL Guardian
-        uses: sousadiego11/sql-guardian@latest
+        uses: sousadiego11/sql-guardian@main
