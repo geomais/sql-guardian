@@ -5,9 +5,16 @@ description: 'Review SQL pull requests based on specific rules.'
 runs:
   using: "composite"
   steps:
+    # Get changed files
     - name: Get changed files
       id: changed-files
       uses: tj-actions/changed-files@v42
+
+    # Make the script files executable
+    - name: Make the script files executable
+      run: chmod +x $GITHUB_ACTION_PATH/action-entrypoint.sh
+
+    # Exec SQL Guard
     - name: Exec SQL Guard
       id: sql-guard
       run: $GITHUB_ACTION_PATH/action-entrypoint.sh
