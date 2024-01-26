@@ -14,8 +14,8 @@ IFS=' ' read -ra files_array <<< "$CHANGED_AND_MODIFIED_FILES"
 
 function validateTableNames() {
     local current_file=$1
-    local table_pattern=".*CREATE\s+TABLE\s+([^\s]*)"
-    local table_name=$(grep -i -E "$table_pattern" "$current_file" | sed -E "s/$table_pattern/\1/I")
+    local table_pattern=".*CREATE\s+TABLE\s+(\S+)"
+    local table_name=$(grep -i -E "$table_pattern" "$current_file" | sed -E "s/$table_pattern.*/\1/I")
     
     if [[ "$table_name" =~ $TABLE_FORBIDDEN_PATTERN ]]; then
         erros+=$'\n'"\n${red}${black}Nomes de tabela no arquivo [$current_file]: \n${red}${black}$table_name"
