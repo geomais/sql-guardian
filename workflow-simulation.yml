@@ -1,0 +1,17 @@
+name: Sql Guardian Tester
+
+on:
+  push:
+    branches:
+      - main
+
+jobs:
+  local-job:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v2
+
+      - name: Run local action
+        uses: ./action.yml
