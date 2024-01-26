@@ -28,7 +28,7 @@ This action checks all the branch changed files, matching against forbidden rule
             ref: main
 
       - name: Run SQL Guardian
-        uses: sousadiego11/sql-guardian@main
+        uses: geomais/sql-guardian@main
         with:
             table_forbidden_pattern: "[^A-Z]"
             column_forbidden_pattern: "[\d+]"
