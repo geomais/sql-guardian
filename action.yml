@@ -30,7 +30,6 @@ runs:
       run: $GITHUB_ACTION_PATH/action-entrypoint.sh
       shell: bash
       env:
-        ADDED_FILES: ${{ steps.changed-files.outputs.added_files }}
         CHANGED_AND_MODIFIED_FILES: ${{ steps.changed-files.outputs.all_changed_and_modified_files }}
         TABLE_FORBIDDEN_PATTERN: ${{ inputs.table_forbidden_pattern }}
         COLUMN_FORBIDDEN_PATTERN: ${{ inputs.column_forbidden_pattern }}

@@ -1,15 +1,13 @@
 #!/bin/bash
 
 echo -e "INICIANDO EXECUÇÃO\n"
-echo -e "ADDED_FILES: $ADDED_FILES\n"
-echo -e "CHANGED_AND_MODIFIED_FILES: $CHANGED_AND_MODIFIED_FILES\n"
+echo -e "ALL_CHANGED_AND_MODIFIED_FILES: $ALL_CHANGED_AND_MODIFIED_FILES\n"
 echo -e "TABLE_FORBIDDEN_PATTERN: $TABLE_FORBIDDEN_PATTERN\n"
 echo -e "COLUMN_FORBIDDEN_PATTERN: $COLUMN_FORBIDDEN_PATTERN\n"
 
 red='\033[41m'
 green='\033[42m'
 nc='\033[0m'
-all_changed_files=("$ADDED_FILES" "$CHANGED_AND_MODIFIED_FILES")
 erros=""
 
 function validateTableNames() {
@@ -22,7 +20,7 @@ function validateTableNames() {
     fi
 }
 
-for current_file in "${all_changed_files[@]}"; do
+for current_file in "${$ALL_CHANGED_AND_MODIFIED_FILES[@]}"; do
     validateTableNames "$current_file"
 done
 
