@@ -19,7 +19,7 @@ jobs:
           ref: main
 
       - name: Run SQL Guardian
-        uses: sousadiego11/sql-guardian@main
+        uses: geomais/sql-guardian@main
         with:
           table_forbidden_pattern: "test-regex"
           column_forbidden_pattern: "test-regex"
