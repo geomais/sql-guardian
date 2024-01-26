@@ -14,7 +14,7 @@ erros=""
 
 function validateTableNames() {
     local current_file=$1
-    local table_pattern=".*CREATE\s+TABLE\s+(.*)"
+    local table_pattern=".*CREATE\s+TABLE\s+([^\s]+)"
     local table_name=$(grep -i -E "$table_pattern" "$current_file" | sed -E "s/$table_pattern/\1/I")
     
     if [[ "$table_name" =~ $TABLE_FORBIDDEN_PATTERN ]]; then
