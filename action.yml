@@ -2,11 +2,6 @@
 name: 'SQL Guardian'
 author: 'Diego Sousa'
 description: 'Review SQL pull requests based on specific rules.'
-inputs:
-  some-random-input:
-    description: 'Some random input'
-    required: true
-    default: 'Random'
 runs:
   using: "composite"
   steps:
@@ -14,6 +9,7 @@ runs:
       id: changed-files
       uses: tj-actions/changed-files@v42
     - name: Exec SQL Guard
+      id: sql-guard
       run: $GITHUB_ACTION_PATH/action-entrypoint.sh
       shell: bash
       env:
