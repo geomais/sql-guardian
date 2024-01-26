@@ -18,7 +18,7 @@ function validateTableNames() {
     local table_name=$(grep -i -E "$table_pattern" "$current_file" | sed -E "s/$table_pattern.*/\1/I")
     
     if [[ "$table_name" =~ $TABLE_FORBIDDEN_PATTERN ]]; then
-        erros+=$'\n'"\n${red}${black}Nomes de tabela no arquivo [$current_file]: \n${red}${black}$table_name"
+        erros+=$'\n'"\nNomes de tabela no arquivo [$current_file]: \n$table_name"
     fi
 }
 
@@ -27,8 +27,8 @@ for current_file in "${files_array[@]}"; do
 done
 
 if [ -n "$erros" ]; then
-    echo -e "${red}${black}Erros encontrados:$erros${nc}"
+    echo -e "${red}${black}Erros encontrados:$erros"
     exit 1
 else
-    echo -e "${green}${black}Nenhum erro encontrado. Execução concluída com sucesso.${nc}"
+    echo -e "${green}${black}Nenhum erro encontrado. Execução concluída com sucesso."
 fi
