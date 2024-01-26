@@ -6,18 +6,20 @@ black="\e[30m"
 erros=""
 IFS=' ' read -ra files_array <<< "$CHANGED_AND_MODIFIED_FILES"
 
-function validateTableNames() {
+function validatePattern() {
     local current_file=$1
-    local table_pattern=".*CREATE\s+TABLE\s+(\S+)"
-    local table_name=$(grep -i -E "$table_pattern" "$current_file" | sed -E "s/$table_pattern.*/\1/I")
+    local capture_target_pattern=$2
+    local forbidden_pattern=$3
+    local error_msg=$4
+    local found_target=$(grep -i -E "$capture_target_pattern" "$current_file" | sed -E "s/$capture_target_pattern/\1/I")
     
-    if [[ "$table_name" =~ $TABLE_FORBIDDEN_PATTERN ]]; then
-        erros+=$'\n'"\nNomes de tabela no arquivo [$current_file]: \n$table_name"
+    if [[ "$found_target" =~ $forbidden_pattern ]]; then
+        erros+=$'\n'"\n$error_msg [$current_file]: \n$found_target"
     fi
 }
 
 for current_file in "${files_array[@]}"; do
-    validateTableNames "$current_file"
+    validatePattern "$current_file" ".*CREATE\s+TABLE\s+(\S+).*" $TABLE_FORBIDDEN_PATTERN "Nomes de tabela no arquivo"
 done
 
 if [ -n "$erros" ]; then
