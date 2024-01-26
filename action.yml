@@ -6,11 +6,11 @@ inputs:
   table_forbidden_pattern:
     description: 'Padrão proibido de nomes de tabelas'
     required: true
-    default: 'test'
+    default: '[^_\w]|[A-Z]|[1-9]]'
   column_forbidden_pattern:
     description: 'Padrão proibido de nomes de colunas'
     required: true
-    default: 'test'
+    default: '[^_\w]|[A-Z]|[1-9]]'
 runs:
   using: "composite"
   steps:
