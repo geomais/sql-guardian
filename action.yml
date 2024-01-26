@@ -15,3 +15,6 @@ runs:
       env:
         ADDED_FILES: ${{ steps.changed-files.outputs.added_files }}
         CHANGED_AND_MODIFIED_FILES: ${{ steps.changed-files.outputs.all_changed_and_modified_files }}
+branding:
+  icon: 'shield'
+  color: 'blue'
