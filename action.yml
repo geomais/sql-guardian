@@ -2,6 +2,15 @@
 name: 'SQL Guardian'
 author: 'Diego Sousa'
 description: 'Review SQL pull requests based on specific rules.'
+inputs:
+  table_forbidden_pattern:
+    description: 'Padrão proibido de nomes de tabelas'
+    required: true
+    default: 'test'
+  column_forbidden_pattern:
+    description: 'Padrão proibido de nomes de colunas'
+    required: true
+    default: 'test'
 runs:
   using: "composite"
   steps:
@@ -23,6 +32,8 @@ runs:
       env:
         ADDED_FILES: ${{ steps.changed-files.outputs.added_files }}
         CHANGED_AND_MODIFIED_FILES: ${{ steps.changed-files.outputs.all_changed_and_modified_files }}
+        TABLE_FORBIDDEN_PATTERN: ${{ inputs.table_forbidden_pattern }}
+        COLUMN_FORBIDDEN_PATTERN: ${{ inputs.column_forbidden_pattern }}
 branding:
   icon: 'shield'
   color: 'blue'

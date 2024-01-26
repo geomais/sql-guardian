@@ -20,3 +20,6 @@ jobs:
 
       - name: Run SQL Guardian
         uses: sousadiego11/sql-guardian@main
+        with:
+          table_forbidden_pattern: "test-regex"
+          column_forbidden_pattern: "test-regex"
