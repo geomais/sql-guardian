@@ -7,7 +7,6 @@ echo -e "COLUMN_FORBIDDEN_PATTERN: $COLUMN_FORBIDDEN_PATTERN\n"
 
 red='\033[41m'
 green='\033[42m'
-nc='\033[0m'
 black="\e[30m"
 erros=""
 IFS=' ' read -ra files_array <<< "$CHANGED_AND_MODIFIED_FILES"
