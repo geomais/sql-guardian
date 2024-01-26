@@ -10,8 +10,13 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
-      - name: Checkout code
-        uses: actions/checkout@v2
+      - uses: AutoModality/action-clean@v1
 
-      - name: Run local action
-        uses: ./action.yml
+      - name: Checkout code
+        uses: actions/checkout@v4
+        with:
+          token: ${{ secrets.GITHUB_TOKEN }}
+          ref: main
+
+      - name: Run SQL Guardian
+        uses: sousadiego11/sql-guardian@1.1.0
