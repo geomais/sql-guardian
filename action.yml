@@ -13,6 +13,7 @@ runs:
     # Make the script files executable
     - name: Make the script files executable
       run: chmod +x $GITHUB_ACTION_PATH/action-entrypoint.sh
+      shell: bash
 
     # Exec SQL Guard
     - name: Exec SQL Guard
