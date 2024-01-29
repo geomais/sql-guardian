@@ -20,8 +20,6 @@ This action checks all the branch changed files, matching against forbidden rule
 
 ## Example usage
 
-``
-
     steps:
       - uses: AutoModality/action-clean@v1
 
@@ -37,4 +35,4 @@ This action checks all the branch changed files, matching against forbidden rule
             table_forbidden_pattern: "[^A-Z]"
             column_forbidden_pattern: "[\d+]"
           
-``
+
