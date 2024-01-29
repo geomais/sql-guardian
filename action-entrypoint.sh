@@ -6,8 +6,8 @@ black="\e[30m"
 erros=""
 
 function validateTableName() {
-    local capture_target_pattern=".*CREATE\s+TABLE\s+(IF\s+NOT\s+EXISTS\s+)?(\S+).*"
-    local captured_table_name=$(echo "$1" | grep -i -E "$capture_target_pattern" | sed -E "s/$capture_target_pattern/\2/I")
+    local capture_table_pattern=".*CREATE\s+TABLE\s+(IF\s+NOT\s+EXISTS\s+)?(\w+\.)?(\S+).*"
+    local captured_table_name=$(echo "$1" | grep -i -E "$capture_table_pattern" | sed -E "s/$capture_table_pattern/\3/I")
 
     if echo "$captured_table_name" | grep -Eq "$TABLE_FORBIDDEN_PATTERN"; then
         erros+=$'\n'"${red}${black}- Table name in file [$current_file]:\n  ${red}${black}\"$captured_table_name\" matches the pattern \"$TABLE_FORBIDDEN_PATTERN\""
@@ -15,7 +15,7 @@ function validateTableName() {
 }
 
 function validateColumnName() {
-    local capture_column_pattern="CREATE\s+TABLE(?:\s+IF\s+NOT\s+EXISTS)?\s+\w+\s*\(([^;]+)\)"
+    local capture_column_pattern="CREATE\s+TABLE(?:\s+IF\s+NOT\s+EXISTS)?\s+.+\s*\(([^;]+)\)"
     local captured_column_instructions=$(echo "$1" | grep -i -o -P "$capture_column_pattern" | grep -o -P "\([^;]+\)")
     local captured_column_instructions="${captured_column_instructions:1:-1}"
 
