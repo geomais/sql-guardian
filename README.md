@@ -9,14 +9,14 @@ This action checks all the branch changed files, matching against forbidden rule
 - Regular expression, when a table name is MATCH, is added to the error's list.
 - default = [^_[:alnum:]]|[A-Z]|[1-9]
 - explanation = match if includes uppercase letters, numbers, of non-word caracteres different from underline.
-- IMPORTANT: This action executes all validations inside ShellScript. To ensure your RegEx works as expected you should provid an pattern using [POSIX](https://www.regular-expressions.info/posixbrackets.html). 
+- IMPORTANT: This action executes all validations inside ShellScript. To ensure your RegEx works as expected you should provide an pattern using [POSIX](https://www.regular-expressions.info/posixbrackets.html). 
 
 ### `column_forbidden_pattern`
 
 - Regular expression, when a column name is MATCH, is added to the error's list.
 - default = [^_[:alnum:]]|[A-Z]|[1-9]
 - explanation = match if includes uppercase letters, numbers, of non-word caracteres different from underline.
-- IMPORTANT: This action executes all validations inside ShellScript. To ensure your RegEx works as expected you should provid an pattern using [POSIX](https://www.regular-expressions.info/posixbrackets.html). 
+- IMPORTANT: This action executes all validations inside ShellScript. To ensure your RegEx works as expected you should provide an pattern using [POSIX](https://www.regular-expressions.info/posixbrackets.html). 
 
 ## Example usage
 
