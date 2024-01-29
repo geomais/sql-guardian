@@ -10,7 +10,7 @@ function validateTableName() {
     local captured_table_name=$(echo "$1" | grep -i -E "$capture_table_pattern" | sed -E "s/$capture_table_pattern/\3/I")
 
     if echo "$captured_table_name" | grep -Eq "$TABLE_FORBIDDEN_PATTERN"; then
-        erros+=$'\n'"${red}${black}- Table name in file [$current_file]:\n  ${red}${black}\"$captured_table_name\" matches the pattern \"$TABLE_FORBIDDEN_PATTERN\""
+        erros+=$'\n'"\n${red}${black}- File [$current_file]: \"$captured_table_name\" does not follow the naming convention for tables. It should not match \"$TABLE_FORBIDDEN_PATTERN\""
     fi
 }
 
@@ -24,7 +24,7 @@ function validateColumnName() {
         local column_name=$(echo "$column" | awk '{print $1}')
 
         if echo "$column_name" | grep -Eq "$COLUMN_FORBIDDEN_PATTERN"; then
-            erros+=$'\n'"${red}${black}- Column name in file [$current_file]:\n  ${red}${black}\"$column_name\" matches the pattern \"$COLUMN_FORBIDDEN_PATTERN\""
+            erros+=$'\n'"\n${red}${black}- File [$current_file]: \"$column_name\" does not follow the naming convention for columns. It should not match \"$COLUMN_FORBIDDEN_PATTERN\""
         fi
     done
 }
@@ -45,7 +45,7 @@ for current_file in "${files_array[@]}"; do
 done
 
 if [ -n "$erros" ]; then
-    echo -e "${red}${black}Found errors:$erros"
+    echo -e "${red}${black}ERRORS FOUND:$erros"
     exit 1
 else
     echo -e "${green}${black}No errors found. Execution finished succesfully!"
