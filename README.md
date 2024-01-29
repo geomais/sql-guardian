@@ -32,7 +32,7 @@ This action checks all the branch changed files, matching against forbidden rule
       - name: Run SQL Guardian
         uses: geomais/sql-guardian@main
         with:
-            table_forbidden_pattern: "[^A-Z]"
-            column_forbidden_pattern: "[\d+]"
+            table_forbidden_pattern: "[:digit:]"
+            column_forbidden_pattern: "[:upper:]"
           
 
