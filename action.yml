@@ -8,24 +8,9 @@ outputs:
     description: "Returns the list of errors found inside all modified SQL files"
 
 runs:
-  using: "composite"
-  steps:
-    - name: Install dependencies
-      run: npm install
-      shell: bash
+  using: 'docker'
+  image: 'Dockerfile'
 
-    # Get changed files
-    - name: Get changed files
-      id: changed-files
-      uses: tj-actions/changed-files@v42
-
-    # Exec SQL Guard
-    - name: Run SQL Guardian
-      id: sql-guard
-      run: node $GITHUB_ACTION_PATH/action-entrypoint.js
-      shell: bash
-      env:
-        CHANGED_AND_MODIFIED_FILES: ${{ steps.changed-files.outputs.all_changed_and_modified_files }}
 branding:
   icon: 'shield'
   color: 'blue'
