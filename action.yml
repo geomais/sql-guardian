@@ -10,6 +10,12 @@ outputs:
 runs:
   using: "composite"
   steps:
+    - name: Install Python
+      run: sudo apt-get install -y python3
+
+    - name: Set Python version for node-gyp
+      run: npm config set python python3
+
     - name: Install Bun
       run: npm install -g bun
       shell: bash
