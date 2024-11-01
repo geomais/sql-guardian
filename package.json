@@ -2,6 +2,9 @@
   "name": "sql-guardian",
   "module": "action-entrypoint.ts",
   "type": "module",
+  "scripts": {
+    "test:action": "sudo act --secret-file .env.secrets --var-file .env.vars -W ./action-workflow-test.yml"
+  },
   "devDependencies": {
     "@types/bun": "latest"
   },
