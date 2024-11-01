@@ -2,6 +2,11 @@
 name: 'SQL Guardian'
 author: 'Diego Sousa'
 description: 'Review SQL changed and modified files using pgsql-parser.'
+
+outputs:
+  sql_errors:
+    description: "Returns the list of errors found inside all modified SQL files"
+
 runs:
   using: "composite"
   steps:
@@ -17,8 +22,6 @@ runs:
       shell: bash
       env:
         CHANGED_AND_MODIFIED_FILES: ${{ steps.changed-files.outputs.all_changed_and_modified_files }}
-outputs:
-  sql_errors: ${{ steps.sql-guard.outputs.sql_errors }}
 branding:
   icon: 'shield'
   color: 'blue'
