@@ -20,6 +20,9 @@ for (const path of filePaths) {
 if (errors.length > 0) {
     console.error("The following syntax errors were detected, Please review the syntax and ensure it conforms to PostgreSQL standards:\n");
     console.error(errors.join('\n'));
+    await Bun.write(Bun.env.GITHUB_OUTPUT!, `sql_errors=${errors.join('@split_here@')}`)
+    process.exit(1);
 } else {
     console.log("No syntax errors found in the SQL files.");
+    await Bun.write(Bun.env.GITHUB_OUTPUT!, `sql_errors=No syntax errors found.\n`)
 }

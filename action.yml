@@ -18,7 +18,7 @@ runs:
       env:
         CHANGED_AND_MODIFIED_FILES: ${{ steps.changed-files.outputs.all_changed_and_modified_files }}
 outputs:
-  sql_errors: ${{ steps.sql-guard.outputs.errors }}
+  sql_errors: ${{ steps.sql-guard.outputs.sql_errors }}
 branding:
   icon: 'shield'
   color: 'blue'
