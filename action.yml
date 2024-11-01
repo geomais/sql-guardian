@@ -17,7 +17,6 @@ runs:
     # Install Bun using the official action
     - name: Setup Bun
       uses: oven-sh/setup-bun@v2
-      shell: bash 
 
     # Install dependencies
     - name: Install dependencies
