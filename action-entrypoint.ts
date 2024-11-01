@@ -1,10 +1,25 @@
-import sqlLint from 'sql-lint'
+import { parse } from 'pgsql-parser';
 
-const files: string[] = Bun.env.all_changed_and_modified_files?.split(' ') ?? []
+const filePaths: string[] = Bun.env.CHANGED_AND_MODIFIED_FILES?.split(' ') ?? []
+const errors = []
 
-for (const file of files) {
-    console.log("🚀 ~ file:", file)
-    // const errors = await sqlLint({
-    //   sql: 'SELECT my_column FROM my_table',
-    // })
+for (const path of filePaths) {
+    const file = await Bun.file(path).text()
+    const statements = file.split(';').filter((sta) => sta.trim())
+
+    for (const statement of statements) {
+        try {
+            parse(statement);
+        } catch (error) {
+            const e = error as Error
+            errors.push(`Error in file [${path}]: ${e.message}`)
+        }
+    }
+}
+
+if (errors.length > 0) {
+    console.error("The following syntax errors were detected, Please review the syntax and ensure it conforms to PostgreSQL standards:\n");
+    console.error(errors.join('\n'));
+} else {
+    console.log("No syntax errors found in the SQL files.");
 }

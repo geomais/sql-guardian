@@ -2,9 +2,6 @@
   "name": "sql-guardian",
   "module": "action-entrypoint.ts",
   "type": "module",
-  "scripts": {
-    "act-entrypoint": "act --var-file .env.vars -W samples/action-workflow.yml"
-  },
   "devDependencies": {
     "@types/bun": "latest"
   },
@@ -12,6 +9,7 @@
     "typescript": "^5.0.0"
   },
   "dependencies": {
+    "pgsql-parser": "^13.16.0",
     "sql-lint": "^1.0.0"
   }
 }

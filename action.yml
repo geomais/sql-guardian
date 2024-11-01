@@ -1,7 +1,7 @@
 # action.yml
 name: 'SQL Guardian'
 author: 'Diego Sousa'
-description: 'Review SQL pull requests based on specific rules.'
+description: 'Review SQL changed and modified files using pgsql-parser.'
 runs:
   using: "composite"
   steps:
@@ -11,13 +11,14 @@ runs:
       uses: tj-actions/changed-files@v42
 
     # Exec SQL Guard
-    - name: Exec SQL Guard
+    - name: Run SQL Guardian
       id: sql-guard
       run: bun $GITHUB_ACTION_PATH/action-entrypoint.ts
       shell: bash
       env:
-        # CHANGED_AND_MODIFIED_FILES: ${{ steps.changed-files.outputs.all_changed_and_modified_files }}
-        CHANGED_AND_MODIFIED_FILES: ${{ vars.all_changed_and_modified_files }}
+        CHANGED_AND_MODIFIED_FILES: ${{ steps.changed-files.outputs.all_changed_and_modified_files }}
+outputs:
+  sql_errors: ${{ steps.sql-guard.outputs.errors }}
 branding:
   icon: 'shield'
   color: 'blue'
