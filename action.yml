@@ -10,10 +10,11 @@ outputs:
 runs:
   using: "composite"
   steps:
-
     - name: Install Bun
-    - uses: oven-sh/setup-bun@v2
-    - run: bun install
+      uses: oven-sh/setup-bun@v2
+
+    - name: Install dependencies
+      run: bun install
 
     # Get changed files
     - name: Get changed files
