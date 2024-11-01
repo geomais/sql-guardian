@@ -5,7 +5,8 @@
     "image": "mcr.microsoft.com/vscode/devcontainers/base:ubuntu-22.04",
 	"features": {
 		"ghcr.io/dhoeric/features/act:1": {},
-		"ghcr.io/shyim/devcontainers-features/bun:0": {}
+		"ghcr.io/shyim/devcontainers-features/bun:0": {},
+		"ghcr.io/devcontainers/features/node:1": {}
 	},
 	"mounts": [
 		"source=/var/run/docker.sock,target=/var/run/docker.sock,type=bind"
