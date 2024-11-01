@@ -15,6 +15,7 @@ runs:
 
     - name: Install dependencies
       run: bun install
+      shell: bash 
 
     # Get changed files
     - name: Get changed files
