@@ -1,0 +1,20 @@
+# .github/workflows/test-sql-guardian.yml
+
+name: Test SQL Guardian Action
+
+on: [push, pull_request]
+
+jobs:
+  test-sql-guardian:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+        with:
+          token: ${{ secrets.GEOMAIS_BOT }}
+          ref: main
+
+      - name: Run SQL Guardian Action
+        uses: ../  # Executa a ação composta localmente
+        with:
+          all_changed_and_modified_files: ${{ env.all_changed_and_modified_files }}

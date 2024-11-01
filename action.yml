@@ -2,15 +2,6 @@
 name: 'SQL Guardian'
 author: 'Diego Sousa'
 description: 'Review SQL pull requests based on specific rules.'
-inputs:
-  table_forbidden_pattern:
-    description: 'Padrão proibido de nomes de tabelas'
-    required: true
-    default: '[^_[:alnum:]]|[A-Z]|[1-9]'
-  column_forbidden_pattern:
-    description: 'Padrão proibido de nomes de colunas'
-    required: true
-    default: '[^_[:alnum:]]|[A-Z]|[1-9]'
 runs:
   using: "composite"
   steps:
@@ -19,20 +10,14 @@ runs:
       id: changed-files
       uses: tj-actions/changed-files@v42
 
-    # Make the script files executable
-    - name: Make the script files executable
-      run: chmod +x $GITHUB_ACTION_PATH/action-entrypoint.sh
-      shell: bash
-
     # Exec SQL Guard
     - name: Exec SQL Guard
       id: sql-guard
-      run: $GITHUB_ACTION_PATH/action-entrypoint.sh
+      run: bun $GITHUB_ACTION_PATH/action-entrypoint.ts
       shell: bash
       env:
-        CHANGED_AND_MODIFIED_FILES: ${{ steps.changed-files.outputs.all_changed_and_modified_files }}
-        TABLE_FORBIDDEN_PATTERN: ${{ inputs.table_forbidden_pattern }}
-        COLUMN_FORBIDDEN_PATTERN: ${{ inputs.column_forbidden_pattern }}
+        # CHANGED_AND_MODIFIED_FILES: ${{ steps.changed-files.outputs.all_changed_and_modified_files }}
+        CHANGED_AND_MODIFIED_FILES: ${{ vars.all_changed_and_modified_files }}
 branding:
   icon: 'shield'
   color: 'blue'

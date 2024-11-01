@@ -1,0 +1,17 @@
+{
+  "name": "sql-guardian",
+  "module": "action-entrypoint.ts",
+  "type": "module",
+  "scripts": {
+    "act-entrypoint": "act --var-file .env.vars -W samples/action-workflow.yml"
+  },
+  "devDependencies": {
+    "@types/bun": "latest"
+  },
+  "peerDependencies": {
+    "typescript": "^5.0.0"
+  },
+  "dependencies": {
+    "sql-lint": "^1.0.0"
+  }
+}
