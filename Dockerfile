@@ -11,4 +11,4 @@ COPY . .
 RUN bun install
 
 # Execute seu script
-CMD ["bun", "dist/index.js"]
+CMD ["bun", "dist/action-entrypoint.js"]
