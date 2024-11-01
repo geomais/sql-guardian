@@ -10,12 +10,16 @@ outputs:
 runs:
   using: "composite"
   steps:
-    - name: Download and Install Bun
-      run: |
-        curl -fsSL https://bun.sh/install | bash
-        echo "$BUN_HOME/bin" >> $GITHUB_PATH
+    - name: Install unzip
+      run: sudo apt-get install unzip
       shell: bash
 
+    # Install Bun using the official action
+    - name: Setup Bun
+      uses: oven-sh/setup-bun@v2
+      shell: bash 
+
+    # Install dependencies
     - name: Install dependencies
       run: bun install
       shell: bash 
