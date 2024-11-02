@@ -20,10 +20,9 @@ for (const path of filePaths) {
 }
 
 if (errors.length > 0) {
-  actionsCore.error("The following syntax errors were detected. Please review the syntax and ensure it conforms to PostgreSQL standards:\n");
-  actionsCore.error(errors.join('\n'));
+  actionsCore.warning("The following syntax errors were detected. Please review the syntax and ensure it conforms to PostgreSQL standards:\n");
+  actionsCore.warning(errors.join('\n'));
   actionsCore.setOutput('sql_errors', errors.join('@split_here@'));
-  process.exit(1);
 } else {
   actionsCore.info("No syntax errors found in the SQL files.");
   actionsCore.setOutput('sql_errors', 'No syntax errors found.');

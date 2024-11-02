@@ -4,7 +4,7 @@ on: [pull_request]
 
 jobs:
   sql-review:
-    runs-on: ubuntu-latest
+    runs-on: ubuntu-22.04
     name: SQL Guardian
     steps:
       - name: Checkout code
@@ -17,7 +17,7 @@ jobs:
         id: sql_guardian
         uses: ./
         with:
-          SQL_FILES: ./samples/arquivo1.sql ./samples/arquivo2.sql
+          sql_files: ./samples/arquivo1.sql ./samples/arquivo2.sql
 
       - name: Echo SQL Errors
-        run: echo "${{ steps.sql_guardian.outputs.sql_errors }}"
+        run: echo "THIS WAS THE OUTPUT OF THE ACTION ${{ steps.sql_guardian.outputs.sql_errors }}"
