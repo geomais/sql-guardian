@@ -3,16 +3,17 @@
   "module": "action-entrypoint.ts",
   "type": "module",
   "scripts": {
-    "build:action": "bun build --entrypoints ./action-entrypoint.ts --outdir ./dist --target node",
+    "typecheck": "tsc --noEmit",
+    "build": "npm run typecheck && ncc build action-entrypoint.ts -o dist",
     "test:action": "sudo act --secret-file .env.secrets --var-file .env.vars -W ./action-workflow-test.yml"
   },
   "devDependencies": {
-    "@types/bun": "latest"
-  },
-  "peerDependencies": {
-    "typescript": "^5.0.0"
+    "@types/node": "^22.8.6",
+    "@vercel/ncc": "^0.38.2",
+    "typescript": "^5.6.3"
   },
   "dependencies": {
+    "@actions/core": "^1.11.1",
     "pgsql-parser": "^13.16.0"
   }
 }

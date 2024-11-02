@@ -1,11 +1,12 @@
-// action-entrypoint.cjs
 import { parse } from 'pgsql-parser';
+import { promises as fs } from 'fs';
+import * as actionsCore from '@actions/core';
 
-const filePaths = Bun.env.SQL_FILES?.split(' ') || [];
+const filePaths = actionsCore.getInput('sql_files', { required: true }).split(' ');
 const errors = [];
 
 for (const path of filePaths) {
-  const file = await Bun.file(path).text();
+  const file = await fs.readFile(path, 'utf8');
   const statements = file.split(';').filter(sta => sta.trim());
 
   for (const statement of statements) {
@@ -19,11 +20,11 @@ for (const path of filePaths) {
 }
 
 if (errors.length > 0) {
-  console.error("The following syntax errors were detected. Please review the syntax and ensure it conforms to PostgreSQL standards:\n");
-  console.error(errors.join('\n'));
-  if (Bun.env.GITHUB_OUTPUT) await Bun.write(Bun.env.GITHUB_OUTPUT, `sql_errors=${errors.join('@split_here@')}`);
+  actionsCore.error("The following syntax errors were detected. Please review the syntax and ensure it conforms to PostgreSQL standards:\n");
+  actionsCore.error(errors.join('\n'));
+  actionsCore.setOutput('sql_errors', errors.join('@split_here@'));
   process.exit(1);
 } else {
-  console.log("No syntax errors found in the SQL files.");
-  if (Bun.env.GITHUB_OUTPUT) await Bun.write(Bun.env.GITHUB_OUTPUT, `sql_errors=No syntax errors found.`);
+  actionsCore.info("No syntax errors found in the SQL files.");
+  actionsCore.setOutput('sql_errors', 'No syntax errors found.');
 }

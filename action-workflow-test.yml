@@ -12,16 +12,12 @@ jobs:
         with:
           token: ${{ secrets.GITHUB_TOKEN }}
           ref: ${{ github.event.pull_request.head.ref }}
-          
-      - name: Get changed files
-        id: changed-files
-        uses: tj-actions/changed-files@v42
 
       - name: Run SQL Guardian
         id: sql_guardian
         uses: ./
         with:
-          SQL_FILES: ${{ steps.changed-files.outputs.all_changed_and_modified_files }}
+          SQL_FILES: ./samples/arquivo1.sql ./samples/arquivo2.sql
 
       - name: Echo SQL Errors
         run: echo "${{ steps.sql_guardian.outputs.sql_errors }}"

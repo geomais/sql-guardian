@@ -3,13 +3,19 @@ name: 'SQL Guardian'
 author: 'Diego Sousa'
 description: 'Review SQL changed and modified files using pgsql-parser.'
 
+inputs:
+  sql_files:
+    description: 'List of SQL files to review'
+    required: true
+    default: ''
+
 outputs:
   sql_errors:
     description: "Returns the list of errors found inside all modified SQL files"
 
 runs:
-  using: 'docker'
-  image: 'Dockerfile'
+  using: 'node20'  # ou 'node18' se quiser usar Node 18
+  main: 'dist/index.js'
 
 branding:
   icon: 'shield'
