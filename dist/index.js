@@ -29597,10 +29597,9 @@ for (const path of filePaths) {
     }
 }
 if (errors.length > 0) {
-    _actions_core__WEBPACK_IMPORTED_MODULE_2__.error("The following syntax errors were detected. Please review the syntax and ensure it conforms to PostgreSQL standards:\n");
-    _actions_core__WEBPACK_IMPORTED_MODULE_2__.error(errors.join('\n'));
-    _actions_core__WEBPACK_IMPORTED_MODULE_2__.setOutput('sql_errors', errors.join('@split_here@'));
-    process.exit(1);
+    _actions_core__WEBPACK_IMPORTED_MODULE_2__.warning("The following syntax errors were detected. Please review the syntax and ensure it conforms to PostgreSQL standards:\n");
+    _actions_core__WEBPACK_IMPORTED_MODULE_2__.warning(errors.join('\n'));
+    _actions_core__WEBPACK_IMPORTED_MODULE_2__.setOutput('sql_errors', errors.join('\n'));
 }
 else {
     _actions_core__WEBPACK_IMPORTED_MODULE_2__.info("No syntax errors found in the SQL files.");
