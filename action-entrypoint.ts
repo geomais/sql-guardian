@@ -2,7 +2,7 @@ import { parse } from 'pgsql-parser';
 import { promises as fs } from 'fs';
 import * as actionsCore from '@actions/core';
 
-const filePaths = actionsCore.getInput('sql_files', { required: true }).split(' ');
+const filePaths = actionsCore.getInput('sql_files', { required: false }).split(' ');
 const errors = [];
 
 for (const path of filePaths) {
