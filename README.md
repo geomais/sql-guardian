@@ -2,46 +2,39 @@
 
 ![GitHub Actions](https://img.shields.io/badge/github%20actions-%232671E5.svg?style=for-the-badge&logo=githubactions&logoColor=white)
 ![Postgres](https://img.shields.io/badge/postgres-%23316192.svg?style=for-the-badge&logo=postgresql&logoColor=white)
-![Shell Script](https://img.shields.io/badge/shell_script-%23121011.svg?style=for-the-badge&logo=gnu-bash&logoColor=white)
+![TypeScript](https://img.shields.io/badge/typescript-%23007ACC.svg?style=for-the-badge&logo=typescript&logoColor=white)
 
-This action checks all the branch changed files, matching against forbidden rules described during the workflow configuration as featured below. When a error exists, the action itself exits with error, logging the found matches.
+This action checks all the desired files and runs a check using pgsql-parser to find possible syntax errors.
 
 ## Inputs
+### `sql_files`
+- The list of files SQL Guardian should look to find possible syntax errors
 
-### `table_forbidden_pattern`
-
-- Regular expression, when a table name inside a create table instruction is MATCH, is added to the error's list.
-- default = [^_[:alnum:]]|[A-Z]|[1-9]
-- explanation = match if includes uppercase letters, numbers, of non-word caracters different from underline.
-- IMPORTANT: This action executes all validations inside ShellScript. To ensure your RegEx works as expected you should provide an pattern using [POSIX](https://www.regular-expressions.info/posixbrackets.html). 
-
-### `column_forbidden_pattern`
-
-- Regular expression, when a column name inside a create table instruction is MATCH, is added to the error's list.
-- default = [^_[:alnum:]]|[A-Z]|[1-9]
-- explanation = match if includes uppercase letters, numbers, of non-word caracters different from underline.
-- IMPORTANT: This action executes all validations inside ShellScript. To ensure your RegEx works as expected you should provide an pattern using [POSIX](https://www.regular-expressions.info/posixbrackets.html). 
+## Outputs
+### `sql_errors`
+- The list of errors found during the execution, a string separating errors by "\n". If no errors are found, the output is a default "not found" message.
 
 ## Supports
-- The table validation also checks if a create table includes `if not exists` so your migration files are also following the convention defined.
-- The table name MAY preceed a schema name. For example, the table name `schema.table.wrong_name1` will validate the string `table.wrong_name1` and throw an error.
-- This action references the syntax of PostgreSQL.
+- SQL Guardian current supports only PostgreSQL using npm's pgsql-parser
 
-## Example usage
-
+## A very common way of using SQL Guardian is to comment Pull Requests as shown below:
     steps:
-      - uses: AutoModality/action-clean@v1
-
       - name: Checkout code
         uses: actions/checkout@v4
         with:
-            token: ${{ secrets.GITHUB_TOKEN }}
-            ref: main
+          token: ${{ secrets.GITHUB_TOKEN }}
+          ref: ${{ github.event.pull_request.head.ref }}
 
       - name: Run SQL Guardian
-        uses: geomais/sql-guardian@main
+        id: sql_guardian
+        uses: geomais/sql-guardian@feat/sql-lint
         with:
-            table_forbidden_pattern: "[:digit:]"
-            column_forbidden_pattern: "[:upper:]"
+          sql_files: ./files/database.sql .files/tables.sql
+
+      - name: Comment PR with possible SQL syntax errors
+        uses: thollander/actions-comment-pull-request@v3
+        with:
+          comment-tag: execution
+          message: "## 🛠️ SQL Syntax Check Report\n\n${{ steps.sql_guardian.outputs.sql_errors }}"
           
 
