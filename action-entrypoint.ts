@@ -22,7 +22,7 @@ for (const path of filePaths) {
 if (errors.length > 0) {
   actionsCore.warning("The following syntax errors were detected. Please review the syntax and ensure it conforms to PostgreSQL standards:\n");
   actionsCore.warning(errors.join('\n'));
-  actionsCore.setOutput('sql_errors', errors.join('@split_here@'));
+  actionsCore.setOutput('sql_errors', errors.join('\n'));
 } else {
   actionsCore.info("No syntax errors found in the SQL files.");
   actionsCore.setOutput('sql_errors', 'No syntax errors found.');
