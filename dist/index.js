@@ -29581,7 +29581,7 @@ __nccwpck_require__.a(module, async (__webpack_handle_async_dependencies__, __we
 
 
 
-const filePaths = _actions_core__WEBPACK_IMPORTED_MODULE_2__.getInput('sql_files', { required: false }).split(' ').filter(Boolean);
+const filePaths = _actions_core__WEBPACK_IMPORTED_MODULE_2__.getInput('sql_files', { required: false }).split(' ').filter(Boolean).filter((path) => path.endsWith('.sql'));
 const errors = [];
 for (const path of filePaths) {
     const file = await fs__WEBPACK_IMPORTED_MODULE_1__.promises.readFile(path, 'utf8');
