@@ -29585,15 +29585,12 @@ const filePaths = _actions_core__WEBPACK_IMPORTED_MODULE_2__.getInput('sql_files
 const errors = [];
 for (const path of filePaths) {
     const file = await fs__WEBPACK_IMPORTED_MODULE_1__.promises.readFile(path, 'utf8');
-    const statements = file.split(';').filter(sta => sta.trim());
-    for (const statement of statements) {
-        try {
-            (0,pgsql_parser__WEBPACK_IMPORTED_MODULE_0__/* .parse */ .qg)(statement);
-        }
-        catch (error) {
-            const e = error;
-            errors.push(`Error in file [${path}]: ${e.message}`);
-        }
+    try {
+        (0,pgsql_parser__WEBPACK_IMPORTED_MODULE_0__/* .parse */ .qg)(file);
+    }
+    catch (error) {
+        const e = error;
+        errors.push(`Error in file [${path}]: ${e.message}`);
     }
 }
 if (errors.length > 0) {

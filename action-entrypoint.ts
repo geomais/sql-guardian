@@ -7,15 +7,12 @@ const errors = [];
 
 for (const path of filePaths) {
   const file = await fs.readFile(path, 'utf8');
-  const statements = file.split(';').filter(sta => sta.trim());
 
-  for (const statement of statements) {
-    try {
-      parse(statement);
-    } catch (error) {
-      const e = error as Error
-      errors.push(`Error in file [${path}]: ${e.message}`);
-    }
+  try {
+    parse(file);
+  } catch (error) {
+    const e = error as Error
+    errors.push(`Error in file [${path}]: ${e.message}`);
   }
 }
 
