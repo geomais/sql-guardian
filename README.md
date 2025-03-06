@@ -27,7 +27,7 @@ This action checks all the desired files and runs a check using pgsql-parser to 
 
       - name: Run SQL Guardian
         id: sql_guardian
-        uses: geomais/sql-guardian@feat/sql-lint
+        uses: geomais/sql-guardian@main
         with:
           sql_files: ./files/database.sql .files/tables.sql
 
